@@ -1,0 +1,17 @@
+{
+    "name": "dorantor/mcounter",
+    "description": "Very simple lib for memcached based counters.",
+    "keywords": ["memcached", "counter", "cipher"],
+    "homepage": "https://github.com/dorantor/mcounter/",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^5.6|^7.0",
+        "ext-memcached": "*"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Dorantor\\" : "src"
+        }
+    }
+}
