@@ -47,7 +47,12 @@ abstract class AbstractCounter
      */
     public function value()
     {
-        return $this->client->get($this->getKey());
+        $value = $this->client->get($this->getKey());
+        if (false === $value) {
+            $value = $this->getInitialValue();
+        }
+
+        return $value;
     }
 
     /**
@@ -59,7 +64,7 @@ abstract class AbstractCounter
      */
     public function inc($step = 1)
     {
-        return $this->client->increment($this->getKey(), $step, $this->getInitialalue());
+        return $this->client->increment($this->getKey(), $step, $this->getInitialValue());
     }
 
     /**
