@@ -1,0 +1,2 @@
+# mcounter
+Simple memcache counter.
