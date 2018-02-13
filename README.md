@@ -40,6 +40,14 @@ if ($counter->value() < 100) {
 }
 ```
 
+If you need use self expiring counter(flag?), you can set third
+parameter in the constructor:
+```php
+$counter = new MyCounter($user, $client, 3600); // hour, in this case
+```
+By default it's set to never expire.
+
+
 *Important note.* You will have to use binary protocol in memcached. 
 For example, it could be enabled this way:
 ```php
