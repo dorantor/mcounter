@@ -40,12 +40,22 @@ if ($counter->value() < 100) {
 }
 ```
 
-If you need use self expiring counter(flag?), you can set third
-parameter in the constructor:
+By default it's set to never expire. But if you need to use self
+expiring counter(flag?), you can set third parameter in the
+constructor:
 ```php
 $counter = new MyCounter($user, $client, 3600); // hour, in this case
 ```
-By default it's set to never expire.
+or you can define expiry logic/value inside counter by overriding
+`getExpiry()` method, p.ex.:
+```php
+protected function getExpiry()
+{
+    return 3600; // also hour, but this way it's defined inside counter
+    // or it could be some logic based on value(s) in $this->item
+}
+```
+
 
 
 *Important note.* You will have to use binary protocol in memcached. 

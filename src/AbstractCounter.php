@@ -75,7 +75,7 @@ abstract class AbstractCounter
             $this->getKey(),
             $step,
             $this->getInitialValue(),
-            $this->expiry
+            $this->getExpiry()
         );
     }
 
@@ -88,6 +88,16 @@ abstract class AbstractCounter
     protected function getInitialValue()
     {
         return 0;
+    }
+
+    /**
+     * Get expiry value
+     *
+     * @return int
+     */
+    protected function getExpiry()
+    {
+        return $this->expiry;
     }
 
     /**
