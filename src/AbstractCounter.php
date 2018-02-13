@@ -14,20 +14,27 @@ abstract class AbstractCounter
     private $client;
 
     /**
-     * @var \Dorantor\CountableInterface
+     * @var mixed
      */
     protected $item;
 
     /**
+     * @var int
+     */
+    protected $expiry;
+
+    /**
      * AbstractCounter constructor.
      *
-     * @param mixed $item
-     * @param \Memcached                   $client
+     * @param mixed         $item
+     * @param \Memcached    $client
+     * @param int           $expiry
      */
-    public function __construct($item, \Memcached $client)
+    public function __construct($item, \Memcached $client, $expiry = 0)
     {
         $this->setClient($client);
         $this->item = $item;
+        $this->expiry = $expiry;
     }
 
     /**
@@ -64,7 +71,12 @@ abstract class AbstractCounter
      */
     public function inc($step = 1)
     {
-        return $this->client->increment($this->getKey(), $step, $this->getInitialValue());
+        return $this->client->increment(
+            $this->getKey(),
+            $step,
+            $this->getInitialValue(),
+            $this->expiry
+        );
     }
 
     /**
