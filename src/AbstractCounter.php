@@ -67,7 +67,7 @@ abstract class AbstractCounter
      *
      * @param int $step
      *
-     * @return int value after increase
+     * @return int|bool value after increase or false on fail
      */
     public function inc($step = 1)
     {
@@ -77,6 +77,38 @@ abstract class AbstractCounter
             $this->getInitialValue(),
             $this->getExpiry()
         );
+    }
+
+    /**
+     * Update expriration time
+     *
+     * @link http://php.net/manual/en/memcached.touch.php
+     * @return bool true on success
+     */
+    public function touch()
+    {
+        return $this->client->touch(
+            $this->getKey(),
+            $this->getExpiry()
+        );
+    }
+
+    /**
+     * Increase counter and update expiry at the same time.
+     *
+     * @param int $step
+     * @see inc()
+     *
+     * @return bool|int new value or false if increase failed
+     */
+    public function incWithTouch($step = 1)
+    {
+        $new = $this->inc($step);
+        if (false !== $new) {
+            $this->touch();
+        }
+
+        return $new;
     }
 
     /**

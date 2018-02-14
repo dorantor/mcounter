@@ -55,6 +55,16 @@ protected function getExpiry()
     // or it could be some logic based on value(s) in $this->item
 }
 ```
+*NB!* Expiry is not updated on inc() call. It's default Memcached
+behaviour. If you need to update expiry use `touch()`, p.ex.:
+```php
+$counter->inc();
+$counter->touch();
+// or
+$counter->incWithTouch();
+```
+Second option is more convenient but you loose control over `touch()`
+success/fail.
 
 
 
