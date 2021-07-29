@@ -74,7 +74,7 @@ abstract class AbstractCounter
         return $this->client->increment(
             $this->getKey(),
             $step,
-            $this->getInitialValue(),
+            $this->getInitialValue() + 1,
             $this->getExpiry()
         );
     }
