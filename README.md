@@ -66,6 +66,20 @@ $counter->incWithTouch();
 Second option is more convenient but you loose control over `touch()`
 success/fail.
 
+In case you need to reset counter you have two options:
+```php
+// this will delete counter, so it will be recreated
+$counter->delete();
+
+// this will get data from getInitialData() method
+// and put it as current counter value
+$counter->reload();
+```
+
+`delete()` is more viable for cache reset cases, `reload()` - for cases when you need to sync counter with current 
+values from your system if counter is used for caching purposes. For example, if your counter value is 
+`select count(*) from tablename`.
+
 
 
 *Important note.* You will have to use binary protocol in memcached. 
