@@ -133,6 +133,32 @@ abstract class AbstractCounter
     }
 
     /**
+     * Reload counter with initial value
+     *
+     * @return bool
+     */
+    public function reload()
+    {
+        return $this->client->set(
+            $this->getKey(),
+            $this->getInitialValue(),
+            $this->getExpiry()
+        );
+    }
+
+    /**
+     * Delete counter
+     *
+     * @return bool
+     */
+    public function delete()
+    {
+        return $this->client->delete(
+            $this->getKey()
+        );
+    }
+
+    /**
      * Method for building cache key based on $item value
      *
      * @return string
